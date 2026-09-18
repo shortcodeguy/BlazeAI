@@ -60,7 +60,7 @@ BlazeAI/
 You can launch the modern web interface with a single click or command:
 
 **Option A: Double-click launcher**
-- Double-click `run_web.bat` in the `BlazeAI v5` folder.
+- Double-click `run_web.bat` in the `BlazeAI` folder.
 
 **Option B: Terminal command**
 ```bash
