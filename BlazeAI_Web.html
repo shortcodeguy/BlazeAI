@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlazeAI v5 — ShortCodeGuy Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* BlazeAI v5 - Modern Dark Theme Stylesheet
+   Created by ShortCodeGuy Studio */
+
+:root {
+  --bg-main: #0b0f19;
+  --bg-surface: #111827;
+  --bg-card: #1f2937;
+  --bg-hover: #374151;
+  --border-color: #2e384d;
+  --border-focus: #f97316;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --blaze-orange: #f97316;
+  --blaze-red: #ef4444;
+  --blaze-gradient: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Layout */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 24px;
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: var(--blaze-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.version-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Model Selector Badge */
+.header-center {
+  display: flex;
+  align-items: center;
+}
+
+.model-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
+}
+
+.status-dot.loading {
+  background: var(--blaze-orange);
+  box-shadow: 0 0 8px var(--blaze-orange);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+.model-badge-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.model-select {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+}
+
+.model-select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* Header Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 7px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+.header-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* Chat Main Area */
+.chat-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Welcome Hero Screen */
+.welcome-screen {
+  margin: auto;
+  max-width: 700px;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.welcome-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--blaze-orange);
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+}
+
+.welcome-title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.welcome-title span {
+  background: var(--blaze-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.spec-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  text-align: left;
+}
+
+.spec-icon {
+  font-size: 20px;
+}
+
+.spec-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.spec-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prompt-suggestions {
+  text-align: left;
+}
+
+.suggestion-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.suggestion-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.suggestion-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--blaze-orange);
+  transform: translateX(4px);
+}
+
+/* Messages List */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.message-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+
+.message-row.user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.message-row.assistant .message-avatar {
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.message-row.user .message-avatar {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.message-content-wrapper {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.message-row.user .message-content-wrapper {
+  align-items: flex-end;
+}
+
+.message-bubble {
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  font-size: 14.5px;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.message-row.assistant .message-bubble {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.message-row.user .message-bubble {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+/* Stream Cursor */
+.streaming-cursor::after {
+  content: '▋';
+  display: inline-block;
+  color: var(--blaze-orange);
+  animation: blink 0.8s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Markdown formatting in assistant bubble */
+.message-bubble p {
+  margin-bottom: 10px;
+}
+.message-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.message-bubble code {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.message-bubble pre {
+  background: #0d1117;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.message-bubble pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+}
+
+/* Telemetry Badge */
+.telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(31, 41, 55, 0.5);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+
+.telemetry-item strong {
+  color: var(--text-secondary);
+}
+
+/* Footer & Input */
+.app-footer {
+  padding: 16px 24px 20px;
+  background: var(--bg-main);
+  border-top: 1px solid var(--border-color);
+}
+
+.input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-container:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15);
+}
+
+#userInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  resize: none;
+  max-height: 160px;
+  min-height: 24px;
+  line-height: 1.5;
+}
+
+#userInput::placeholder {
+  color: var(--text-muted);
+}
+
+.send-btn {
+  background: var(--blaze-gradient);
+  border: none;
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.send-btn:hover {
+  transform: scale(1.04);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footer-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Modals */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: opacity 0.2s ease;
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.close-modal-btn:hover {
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.setting-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.slider-val {
+  font-family: var(--font-mono);
+  color: var(--blaze-orange);
+  font-weight: 600;
+}
+
+.setting-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+input[type="range"] {
+  accent-color: var(--blaze-orange);
+  cursor: pointer;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.btn.primary {
+  background: var(--blaze-gradient);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  opacity: 0.92;
+}
+
+.btn.secondary {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Stats Modal Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.stat-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.stat-name {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.memory-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.memory-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.memory-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.memory-row strong {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.progress-bar-container {
+  height: 8px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--blaze-gradient);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+/* Transcripts Modal */
+.save-box {
+  display: flex;
+  gap: 8px;
+}
+
+.save-box input {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+.transcripts-list-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.transcripts-list {
+  max-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.transcript-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12.5px;
+}
+
+.transcript-name {
+  font-family: var(--font-mono);
+}
+
+.transcript-load-btn {
+  background: var(--blaze-orange);
+  border: none;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.empty-list {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 14px;
+}
+
+/* Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">🔥</div>
+        <div class="brand-text">
+          <div class="brand-title">
+            <span class="brand-name">BlazeAI</span>
+            <span class="version-badge">v5</span>
+          </div>
+          <div class="brand-subtitle">Created by ShortCodeGuy Studio</div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="model-badge-container">
+          <span class="status-dot online"></span>
+          <span class="model-badge-label">Model:</span>
+          <select id="modelSelector" class="model-select">
+            <option value="Qwen/Qwen2.5-0.5B-Instruct" selected>Qwen2.5-0.5B-Instruct (Fast CPU)</option>
+            <option value="deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B">DeepSeek-R1-Distill-1.5B (Reasoning)</option>
+            <option value="HuggingFaceTB/SmolLM2-1.7B-Instruct">SmolLM2-1.7B-Instruct</option>
+            <option value="HuggingFaceTB/SmolLM2-360M-Instruct">SmolLM2-360M-Instruct</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnStats" class="header-btn" title="View System and Session Stats">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <span>Stats</span>
+        </button>
+        <button id="btnSettings" class="header-btn" title="Generation Settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </button>
+        <button id="btnTranscripts" class="header-btn" title="Save or Load Transcripts">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span>Transcripts</span>
+        </button>
+        <button id="btnClear" class="header-btn danger" title="Clear Conversation">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Clear</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Chat Window -->
+    <main class="chat-main" id="chatContainer">
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-badge">CPU INFERENCE • 100% LOCAL</div>
+        <h1 class="welcome-title">BlazeAI <span>v5</span></h1>
+        <p class="welcome-subtitle">
+          A genuine local AI chatbot powered entirely by language model inference.
+          <br />Zero hardcoded answers. Zero canned intelligence.
+        </p>
+
+        <div class="specs-grid">
+          <div class="spec-card">
+            <div class="spec-icon">⚡</div>
+            <div class="spec-info">
+              <div class="spec-label">Engine</div>
+              <div class="spec-value">KV Cache + Streaming</div>
+            </div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">🧠</div>
+            <div class="spec-info">
+              <div class="spec-label">Language Model</div>
+              <div class="spec-value" id="currentModelDisplay">Qwen2.5-0.5B-Instruct</div>
+            </div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">💻</div>
+            <div class="spec-info">
+              <div class="spec-label">Hardware Profile</div>
+              <div class="spec-value">Intel i3-1215U • 8GB RAM</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prompt-suggestions">
+          <div class="suggestion-title">Try asking an unanticipated question:</div>
+          <div class="suggestions-list">
+            <button class="suggestion-btn" data-prompt="Why do stars twinkle in the night sky?">
+              "Why do stars twinkle in the night sky?"
+            </button>
+            <button class="suggestion-btn" data-prompt="Explain how noise-canceling headphones work in simple terms.">
+              "Explain how noise-canceling headphones work."
+            </button>
+            <button class="suggestion-btn" data-prompt="Write a concise Python function to check if a string is a palindrome.">
+              "Write a concise Python function for palindromes."
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages list -->
+      <div class="messages-list" id="messagesList"></div>
+    </main>
+
+    <!-- Input Footer -->
+    <footer class="app-footer">
+      <div class="input-container">
+        <textarea
+          id="userInput"
+          rows="1"
+          placeholder="Ask BlazeAI anything... (Press Enter to send, Shift+Enter for newline)"
+          autocomplete="off"
+        ></textarea>
+        <button id="btnSend" class="send-btn" title="Send Message">
+          <svg id="sendIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          <div id="loadingSpinner" class="spinner hidden"></div>
+        </button>
+      </div>
+      <div class="footer-note">
+        BlazeAI v5 runs locally on CPU with zero cloud APIs. Created by <strong>ShortCodeGuy Studio</strong>.
+      </div>
+    </footer>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-backdrop hidden" id="settingsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Generation Settings</h3>
+        <button class="close-modal-btn" data-target="settingsModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-item">
+          <div class="setting-label-row">
+            <label for="settingTemp">Temperature</label>
+            <span id="tempValue" class="slider-val">0.7</span>
+          </div>
+          <input type="range" id="settingTemp" min="0.1" max="1.5" step="0.05" value="0.7">
+          <div class="setting-desc">Controls randomness. Lower values are more deterministic.</div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label-row">
+            <label for="settingTopP">Top-P (Nucleus)</label>
+            <span id="topPValue" class="slider-val">0.9</span>
+          </div>
+          <input type="range" id="settingTopP" min="0.1" max="1.0" step="0.05" value="0.9">
+          <div class="setting-desc">Cumulative probability cutoff for token sampling.</div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label-row">
+            <label for="settingMaxTokens">Max New Tokens</label>
+            <span id="maxTokensValue" class="slider-val">512</span>
+          </div>
+          <input type="range" id="settingMaxTokens" min="64" max="1024" step="32" value="512">
+          <div class="setting-desc">Maximum output length per model generation.</div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label-row">
+            <label for="settingRepPenalty">Repetition Penalty</label>
+            <span id="repPenaltyValue" class="slider-val">1.1</span>
+          </div>
+          <input type="range" id="settingRepPenalty" min="1.0" max="1.5" step="0.05" value="1.1">
+          <div class="setting-desc">Penalizes token repetition to encourage varied vocabulary.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn secondary" data-target="settingsModal">Close</button>
+        <button id="btnSaveSettings" class="btn primary">Apply Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div class="modal-backdrop hidden" id="statsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Session Diagnostics & RAM</h3>
+        <button class="close-modal-btn" data-target="statsModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-number" id="statTurns">0</div>
+            <div class="stat-name">Conversation Turns</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="statTokens">0</div>
+            <div class="stat-name">Tokens Produced</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="statAvgSpeed">0.0</div>
+            <div class="stat-name">Avg Speed (tok/s)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" id="statAvgTTFT">0</div>
+            <div class="stat-name">Avg TTFT (ms)</div>
+          </div>
+        </div>
+
+        <div class="memory-section">
+          <div class="memory-title">Memory Allocation</div>
+          <div class="memory-row">
+            <span>Process RAM (RSS):</span>
+            <strong id="statProcRam">-- MB</strong>
+          </div>
+          <div class="memory-row">
+            <span>System RAM Used:</span>
+            <strong id="statSysRam">-- / -- MB</strong>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="statRamBar" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn primary" data-target="statsModal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transcripts Modal -->
+  <div class="modal-backdrop hidden" id="transcriptsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Saved Transcripts</h3>
+        <button class="close-modal-btn" data-target="transcriptsModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="save-box">
+          <input type="text" id="saveFilenameInput" placeholder="Enter filename (e.g. research_chat)" />
+          <button id="btnSaveTranscript" class="btn primary">Save Current Chat</button>
+        </div>
+        <div class="transcripts-list-title">Saved Sessions in data/:</div>
+        <div class="transcripts-list" id="transcriptsList">
+          <div class="empty-list">No saved transcripts found.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn secondary" data-target="transcriptsModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+/**
+ * BlazeAI v5 - Frontend Application Logic
+ * Created by ShortCodeGuy Studio
+ *
+ * Real-time SSE streaming client, markdown parser, model & telemetry manager.
+ */
+
+// Dynamically determine backend base URL.
+// If the user opens index.html directly from file explorer (file://), fallback to http://127.0.0.1:8000
+const API_BASE =
+  window.location.protocol === "file:" || !window.location.origin.startsWith("http")
+    ? "http://127.0.0.1:8000"
+    : "";
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Elements
+  const chatContainer = document.getElementById("chatContainer");
+  const messagesList = document.getElementById("messagesList");
+  const welcomeScreen = document.getElementById("welcomeScreen");
+  const userInput = document.getElementById("userInput");
+  const btnSend = document.getElementById("btnSend");
+  const sendIcon = document.getElementById("sendIcon");
+  const loadingSpinner = document.getElementById("loadingSpinner");
+  const modelSelector = document.getElementById("modelSelector");
+  const currentModelDisplay = document.getElementById("currentModelDisplay");
+  const statusDot = document.querySelector(".status-dot");
+
+  // Modals & Buttons
+  const btnClear = document.getElementById("btnClear");
+  const btnStats = document.getElementById("btnStats");
+  const btnSettings = document.getElementById("btnSettings");
+  const btnTranscripts = document.getElementById("btnTranscripts");
+
+  const settingsModal = document.getElementById("settingsModal");
+  const statsModal = document.getElementById("statsModal");
+  const transcriptsModal = document.getElementById("transcriptsModal");
+
+  // Settings inputs
+  const settingTemp = document.getElementById("settingTemp");
+  const tempValue = document.getElementById("tempValue");
+  const settingTopP = document.getElementById("settingTopP");
+  const topPValue = document.getElementById("topPValue");
+  const settingMaxTokens = document.getElementById("settingMaxTokens");
+  const maxTokensValue = document.getElementById("maxTokensValue");
+  const settingRepPenalty = document.getElementById("settingRepPenalty");
+  const repPenaltyValue = document.getElementById("repPenaltyValue");
+  const btnSaveSettings = document.getElementById("btnSaveSettings");
+
+  // Stats elements
+  const statTurns = document.getElementById("statTurns");
+  const statTokens = document.getElementById("statTokens");
+  const statAvgSpeed = document.getElementById("statAvgSpeed");
+  const statAvgTTFT = document.getElementById("statAvgTTFT");
+  const statProcRam = document.getElementById("statProcRam");
+  const statSysRam = document.getElementById("statSysRam");
+  const statRamBar = document.getElementById("statRamBar");
+
+  // Transcripts elements
+  const saveFilenameInput = document.getElementById("saveFilenameInput");
+  const btnSaveTranscript = document.getElementById("btnSaveTranscript");
+  const transcriptsList = document.getElementById("transcriptsList");
+
+  let isGenerating = false;
+
+  // Auto-resize textarea
+  userInput.addEventListener("input", () => {
+    userInput.style.height = "auto";
+    userInput.style.height = Math.min(userInput.scrollHeight, 160) + "px";
+  });
+
+  // Prompt suggestions
+  document.querySelectorAll(".suggestion-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      userInput.value = btn.getAttribute("data-prompt");
+      userInput.focus();
+      sendMessage();
+    });
+  });
+
+  // Modal helpers
+  function openModal(modal) {
+    modal.classList.remove("hidden");
+  }
+
+  function closeModal(modal) {
+    modal.classList.add("hidden");
+  }
+
+  document.querySelectorAll(".close-modal-btn, [data-target]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-target");
+      const target = document.getElementById(targetId);
+      if (target) closeModal(target);
+    });
+  });
+
+  // Check Backend Health on load
+  async function checkBackendHealth() {
+    try {
+      const res = await fetch(`${API_BASE}/api/health`);
+      if (res.ok) {
+        const data = await res.json();
+        statusDot.className = "status-dot online";
+        statusDot.title = "Connected to BlazeAI backend";
+        if (data.active_model) {
+          currentModelDisplay.textContent = data.active_model.split("/").pop();
+          if (modelSelector) modelSelector.value = data.active_model;
+        }
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (e) {
+      statusDot.className = "status-dot loading";
+      statusDot.title = "Cannot reach BlazeAI backend";
+      showOfflineBanner();
+    }
+  }
+
+  function showOfflineBanner() {
+    if (document.getElementById("offlineBanner")) return;
+    const banner = document.createElement("div");
+    banner.id = "offlineBanner";
+    banner.style.cssText =
+      "background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 10px 16px; border-radius: 8px; margin: 12px 24px; font-size: 13px; text-align: center;";
+    banner.innerHTML =
+      "⚠️ <strong>BlazeAI backend server is not reachable.</strong> Please start the backend by running <code>run_web.bat</code> or <code>python server.py</code> in the <code>BlazeAI v5</code> folder.";
+    const header = document.querySelector(".app-header");
+    header.insertAdjacentElement("afterend", banner);
+  }
+
+  // Load Settings
+  async function loadSettings() {
+    try {
+      const res = await fetch(`${API_BASE}/api/settings`);
+      if (!res.ok) return;
+      const data = await res.json();
+      settingTemp.value = data.temperature;
+      tempValue.textContent = data.temperature;
+      settingTopP.value = data.top_p;
+      topPValue.textContent = data.top_p;
+      settingMaxTokens.value = data.max_new_tokens;
+      maxTokensValue.textContent = data.max_new_tokens;
+      settingRepPenalty.value = data.repetition_penalty;
+      repPenaltyValue.textContent = data.repetition_penalty;
+    } catch (e) {
+      console.warn("Could not load settings:", e);
+    }
+  }
+
+  // Update slider text
+  settingTemp.addEventListener("input", () => (tempValue.textContent = settingTemp.value));
+  settingTopP.addEventListener("input", () => (topPValue.textContent = settingTopP.value));
+  settingMaxTokens.addEventListener("input", () => (maxTokensValue.textContent = settingMaxTokens.value));
+  settingRepPenalty.addEventListener("input", () => (repPenaltyValue.textContent = settingRepPenalty.value));
+
+  btnSaveSettings.addEventListener("click", async () => {
+    const payload = {
+      temperature: parseFloat(settingTemp.value),
+      top_p: parseFloat(settingTopP.value),
+      max_new_tokens: parseInt(settingMaxTokens.value, 10),
+      repetition_penalty: parseFloat(settingRepPenalty.value),
+    };
+    try {
+      await fetch(`${API_BASE}/api/settings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      closeModal(settingsModal);
+    } catch (e) {
+      alert("Failed to save settings: " + e.message);
+    }
+  });
+
+  btnSettings.addEventListener("click", () => {
+    loadSettings();
+    openModal(settingsModal);
+  });
+
+  // Load Stats
+  async function loadStats() {
+    try {
+      const res = await fetch(`${API_BASE}/api/stats`);
+      if (!res.ok) return;
+      const data = await res.json();
+      statTurns.textContent = data.total_turns;
+      statTokens.textContent = data.total_tokens_produced;
+      statAvgSpeed.textContent = data.avg_speed_tok_s;
+      statAvgTTFT.textContent = data.avg_ttft_ms;
+      statProcRam.textContent = `${data.process_ram_mb} MB`;
+      statSysRam.textContent = `${Math.round(data.system_ram_used_mb)} / ${Math.round(data.system_ram_total_mb)} MB (${data.system_ram_percent}%)`;
+      statRamBar.style.width = `${data.system_ram_percent}%`;
+    } catch (e) {
+      console.warn("Could not load stats:", e);
+    }
+  }
+
+  btnStats.addEventListener("click", () => {
+    loadStats();
+    openModal(statsModal);
+  });
+
+  // Clear Conversation
+  btnClear.addEventListener("click", async () => {
+    if (confirm("Clear current conversation history?")) {
+      try {
+        await fetch(`${API_BASE}/api/clear`, { method: "POST" });
+        messagesList.innerHTML = "";
+        welcomeScreen.classList.remove("hidden");
+      } catch (e) {
+        alert("Failed to clear chat: " + e.message);
+      }
+    }
+  });
+
+  // Model switching
+  modelSelector.addEventListener("change", async () => {
+    const newModel = modelSelector.value;
+    statusDot.className = "status-dot loading";
+    currentModelDisplay.textContent = newModel.split("/").pop();
+
+    try {
+      const res = await fetch(`${API_BASE}/api/model/switch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model_id: newModel }),
+      });
+      if (!res.ok) throw new Error("Switch failed");
+      const data = await res.json();
+      statusDot.className = "status-dot online";
+      alert(`Successfully loaded ${newModel} in ${data.load_time_sec}s`);
+    } catch (e) {
+      alert("Failed to switch model: " + e.message);
+      statusDot.className = "status-dot online";
+    }
+  });
+
+  // Transcripts
+  async function loadTranscriptsList() {
+    try {
+      const res = await fetch(`${API_BASE}/api/transcripts`);
+      if (!res.ok) return;
+      const data = await res.json();
+      transcriptsList.innerHTML = "";
+      if (data.transcripts.length === 0) {
+        transcriptsList.innerHTML = '<div class="empty-list">No saved transcripts found.</div>';
+        return;
+      }
+      data.transcripts.forEach((file) => {
+        const item = document.createElement("div");
+        item.className = "transcript-item";
+        item.innerHTML = `
+          <span class="transcript-name">${file}</span>
+          <button class="transcript-load-btn" data-filename="${file}">Restore</button>
+        `;
+        transcriptsList.appendChild(item);
+      });
+
+      document.querySelectorAll(".transcript-load-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const fn = btn.getAttribute("data-filename");
+          await restoreTranscript(fn);
+        });
+      });
+    } catch (e) {
+      console.warn("Could not list transcripts:", e);
+    }
+  }
+
+  async function restoreTranscript(filename) {
+    try {
+      const res = await fetch(`${API_BASE}/api/load`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename }),
+      });
+      if (!res.ok) throw new Error("Could not load transcript");
+      const data = await res.json();
+
+      messagesList.innerHTML = "";
+      welcomeScreen.classList.add("hidden");
+      data.history.forEach((turn) => {
+        renderMessageBubble(turn.role, turn.content);
+      });
+      closeModal(transcriptsModal);
+      scrollToBottom();
+    } catch (e) {
+      alert("Error restoring transcript: " + e.message);
+    }
+  }
+
+  btnSaveTranscript.addEventListener("click", async () => {
+    const filename = saveFilenameInput.value.trim();
+    try {
+      const res = await fetch(`${API_BASE}/api/save`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: filename || null }),
+      });
+      if (!res.ok) throw new Error("Failed to save transcript");
+      const data = await res.json();
+      alert(`Transcript saved: ${data.filename}`);
+      saveFilenameInput.value = "";
+      loadTranscriptsList();
+    } catch (e) {
+      alert("Error saving: " + e.message);
+    }
+  });
+
+  btnTranscripts.addEventListener("click", () => {
+    loadTranscriptsList();
+    openModal(transcriptsModal);
+  });
+
+  // Markdown formatter
+  function formatMarkdown(text) {
+    if (!text) return "";
+    let raw = text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    // Code blocks ```code```
+    raw = raw.replace(/```([\s\S]*?)```/g, (match, code) => {
+      return `<pre><code>${code.trim()}</code></pre>`;
+    });
+
+    // Inline code `code`
+    raw = raw.replace(/`([^`]+)`/g, "<code>$1</code>");
+
+    // Bold **text**
+    raw = raw.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+    // Italic *text*
+    raw = raw.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+    // Bullet points
+    raw = raw.replace(/^\s*[-*]\s+(.+)$/gm, "<li>$1</li>");
+    raw = raw.replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>");
+
+    // Paragraphs
+    const paragraphs = raw.split(/\n\n+/);
+    return paragraphs
+      .map((p) => {
+        if (p.startsWith("<pre>") || p.startsWith("<ul>")) return p;
+        return `<p>${p.replace(/\n/g, "<br/>")}</p>`;
+      })
+      .join("");
+  }
+
+  function scrollToBottom() {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  function renderMessageBubble(role, content, metrics = null) {
+    const row = document.createElement("div");
+    row.className = `message-row ${role}`;
+
+    const avatar = document.createElement("div");
+    avatar.className = "message-avatar";
+    avatar.innerHTML = role === "user" ? "👤" : "🔥";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "message-content-wrapper";
+
+    const bubble = document.createElement("div");
+    bubble.className = "message-bubble";
+    bubble.innerHTML = role === "user" ? escapeHtml(content) : formatMarkdown(content);
+
+    wrapper.appendChild(bubble);
+
+    if (metrics && role === "assistant") {
+      const badge = document.createElement("div");
+      badge.className = "telemetry-badge";
+      badge.innerHTML = `
+        <span class="telemetry-item">⏱️ TTFT: <strong>${metrics.ttft_ms}ms</strong></span>
+        <span class="telemetry-item">⚡ Speed: <strong>${metrics.speed_tok_s} tok/s</strong></span>
+        <span class="telemetry-item">📊 Tokens: <strong>${metrics.generated_tokens}</strong></span>
+        <span class="telemetry-item">💾 RAM: <strong>${metrics.process_ram_mb} MB</strong></span>
+      `;
+      wrapper.appendChild(badge);
+    }
+
+    row.appendChild(avatar);
+    row.appendChild(wrapper);
+    messagesList.appendChild(row);
+    scrollToBottom();
+    return bubble;
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\n/g, "<br/>");
+  }
+
+  // Send message with streaming SSE
+  async function sendMessage() {
+    const text = userInput.value.trim();
+    if (!text || isGenerating) return;
+
+    isGenerating = true;
+    welcomeScreen.classList.add("hidden");
+    userInput.value = "";
+    userInput.style.height = "auto";
+
+    // Disable send button and show spinner
+    btnSend.disabled = true;
+    sendIcon.classList.add("hidden");
+    loadingSpinner.classList.remove("hidden");
+
+    // Render user message bubble
+    renderMessageBubble("user", text);
+
+    // Prepare assistant message bubble with thinking status
+    const row = document.createElement("div");
+    row.className = "message-row assistant";
+
+    const avatar = document.createElement("div");
+    avatar.className = "message-avatar";
+    avatar.innerHTML = "🔥";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "message-content-wrapper";
+
+    const bubble = document.createElement("div");
+    bubble.className = "message-bubble streaming-cursor";
+    bubble.innerHTML = `<span style="color: var(--text-muted); font-style: italic;">Thinking & generating response on CPU...</span>`;
+
+    wrapper.appendChild(bubble);
+    row.appendChild(avatar);
+    row.appendChild(wrapper);
+    messagesList.appendChild(row);
+    scrollToBottom();
+
+    let fullGeneratedText = "";
+    let metricsData = null;
+    let hadError = false;
+    let firstTokenReceived = false;
+
+    try {
+      const response = await fetch(`${API_BASE}/api/chat/stream`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server responded with HTTP status ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop(); // keep partial line
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith("data: ")) continue;
+          const jsonStr = trimmed.slice(6);
+          try {
+            const event = JSON.parse(jsonStr);
+            if (event.type === "token") {
+              if (!firstTokenReceived) {
+                firstTokenReceived = true;
+                bubble.innerHTML = "";
+              }
+              fullGeneratedText += event.content;
+              bubble.innerHTML = formatMarkdown(fullGeneratedText);
+              scrollToBottom();
+            } else if (event.type === "metrics") {
+              metricsData = event.data;
+            } else if (event.type === "error") {
+              hadError = true;
+              bubble.innerHTML += `<br/><span style="color:#ef4444; font-weight:600;">[Model Error: ${escapeHtml(event.message)}]</span>`;
+            }
+          } catch (err) {
+            console.error("SSE parse error:", err);
+          }
+        }
+      }
+    } catch (err) {
+      hadError = true;
+      bubble.innerHTML = `
+        <div style="color: #ef4444; padding: 4px 0;">
+          <strong>⚠️ Unable to reach BlazeAI backend server.</strong><br/>
+          <span style="font-size: 13px; color: var(--text-secondary);">
+            Please make sure the backend server is running.<br/>
+            Run <code>run_web.bat</code> or execute <code>python server.py</code> in your terminal.<br/>
+            <em>Details: ${escapeHtml(err.message)}</em>
+          </span>
+        </div>`;
+    } finally {
+      bubble.classList.remove("streaming-cursor");
+
+      if (!hadError && fullGeneratedText) {
+        bubble.innerHTML = formatMarkdown(fullGeneratedText);
+      } else if (!hadError && !fullGeneratedText) {
+        bubble.innerHTML = `<span style="color: var(--text-muted); font-style: italic;">No tokens generated by the model.</span>`;
+      }
+
+      // Add metrics badge if available
+      if (metricsData) {
+        const badge = document.createElement("div");
+        badge.className = "telemetry-badge";
+        badge.innerHTML = `
+          <span class="telemetry-item">⏱️ TTFT: <strong>${metricsData.ttft_ms}ms</strong></span>
+          <span class="telemetry-item">⚡ Speed: <strong>${metricsData.speed_tok_s} tok/s</strong></span>
+          <span class="telemetry-item">📊 Tokens: <strong>${metricsData.generated_tokens}</strong></span>
+          <span class="telemetry-item">💾 RAM: <strong>${metricsData.process_ram_mb} MB</strong></span>
+        `;
+        wrapper.appendChild(badge);
+      }
+
+      isGenerating = false;
+      btnSend.disabled = false;
+      sendIcon.classList.remove("hidden");
+      loadingSpinner.classList.add("hidden");
+      userInput.focus();
+      scrollToBottom();
+    }
+  }
+
+  // Event Listeners
+  btnSend.addEventListener("click", sendMessage);
+
+  userInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // Initial startup checks
+  checkBackendHealth();
+  loadSettings();
+});
+
+  </script>
+</body>
+</html>
